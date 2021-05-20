@@ -5,12 +5,17 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.scg.employee.dao.entity.Department;
 import com.scg.employee.dao.repository.DepartmentRepository;
 import com.scg.employee.mapper.DepartmentMapper;
 import com.scg.employee.vo.DepartmentVO;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Component
 public class DepartmentDAOImpl implements DepartmentDAO {
 
@@ -27,10 +32,18 @@ public class DepartmentDAOImpl implements DepartmentDAO {
 		return departmentMapper.toDepartmentVO(departmentRepository.save(department));
 	}
 
+	@Transactional(isolation = Isolation.REPEATABLE_READ)
 	@Override
 	public DepartmentVO findById(final int id) throws Exception {
 
 		final Department department = departmentRepository.findById(id).orElseThrow();
+
+		log.info(department.getName());
+		department.setName("Updated_name");
+		update(departmentMapper.toDepartmentVO(department));
+		final Department updatedDepartment = departmentRepository.findById(id).orElseThrow();
+		log.info(updatedDepartment.getName());
+
 		return departmentMapper.toDepartmentVO(department);
 	}
 
@@ -64,6 +77,7 @@ public class DepartmentDAOImpl implements DepartmentDAO {
 		return departmentMapper.toDepartmentVO(department);
 	}
 
+	@Transactional
 	@Override
 	public DepartmentVO update(final DepartmentVO departmentVO) throws Exception {
 
