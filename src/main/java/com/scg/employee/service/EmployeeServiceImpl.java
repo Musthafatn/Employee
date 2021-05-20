@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.scg.employee.dao.EmployeeDAO;
+import com.scg.employee.exception.DataNotFoundException;
 import com.scg.employee.validate.Validator;
 import com.scg.employee.vo.EmployeeVO;
 
@@ -22,53 +23,62 @@ public class EmployeeServiceImpl implements EmployeeService {
 	private Validator validator;
 
 	@Override
-	public EmployeeVO insert(final EmployeeVO employeeVO) throws Exception {
+	public EmployeeVO insert(final EmployeeVO employeeVO) {
 
 		validator.validateEmployee(employeeVO);
 		return employeeDAO.insert(employeeVO);
 	}
 
 	@Override
-	public EmployeeVO findById(final int id) throws Exception {
+	public EmployeeVO findById(final int id) {
 
 		validator.validateId(id);
 		return employeeDAO.findById(id);
 	}
 
 	@Override
-	public List<EmployeeVO> findByName(final String name) throws Exception {
+	public List<EmployeeVO> findByName(final String name) {
 
 		validator.validateName(name);
 		final List<EmployeeVO> employeeVOList = employeeDAO.findByName(name);
+		if (employeeVOList.isEmpty()) {
+			throw new DataNotFoundException("No data found");
+		}
 		return employeeVOList;
 	}
 
 	@Override
-	public List<EmployeeVO> findAll() throws Exception {
+	public List<EmployeeVO> findAll() {
 
 		final List<EmployeeVO> employeeVOList = employeeDAO.findAll();
+		if (employeeVOList.isEmpty()) {
+			throw new DataNotFoundException("No data found");
+		}
 		return employeeVOList;
 	}
 
 	@Override
-	public List<EmployeeVO> findByPage(final int pageNumber) throws Exception {
+	public List<EmployeeVO> findByPage(final int pageNumber) {
 
 		validator.validatePageNumber(pageNumber);
 		final List<EmployeeVO> employeeVOList = employeeDAO.findByPage(pageNumber - 1);
+		if (employeeVOList.isEmpty()) {
+			throw new DataNotFoundException("No data found");
+		}
 		return employeeVOList;
 	}
 
 	@Override
-	public EmployeeVO deleteById(final int id) throws Exception {
+	public EmployeeVO deleteById(final int id) {
 
 		validator.validateId(id);
 		return employeeDAO.deleteById(id);
 	}
 
 	@Override
-	public EmployeeVO update(final EmployeeVO employeeVO) throws Exception {
+	public EmployeeVO update(final EmployeeVO employeeVO) {
 
-		validator.validateEmployee(employeeVO);
+//		validator.validateEmployee(employeeVO);
 		return employeeDAO.update(employeeVO);
 	}
 

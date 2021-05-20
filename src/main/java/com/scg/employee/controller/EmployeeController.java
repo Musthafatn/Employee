@@ -24,44 +24,44 @@ public class EmployeeController {
 	private EmployeeService employeeService;
 
 	@PostMapping
-	public EmployeeVO insert(@RequestBody final EmployeeVO employeeVO) throws Exception {
+	public EmployeeVO insert(@RequestBody final EmployeeVO employeeVO) {
 
 		return employeeService.insert(employeeVO);
 	}
 
 	@GetMapping("/id/{id}")
-	public EmployeeVO findById(@PathVariable final int id) throws Exception {
+	public EmployeeVO findById(@PathVariable final int id) {
 
 		return employeeService.findById(id);
 	}
 
 	@GetMapping("/name/{name}")
-	public List<EmployeeVO> findByName(@PathVariable final String name) throws Exception {
+	public List<EmployeeVO> findByName(@PathVariable final String name) {
 
 		return employeeService.findByName(name);
 	}
 
 	@ExecutionTime
 	@GetMapping("/list")
-	public List<EmployeeVO> findAll() throws Exception {
+	public List<EmployeeVO> findAll() {
 
 		return employeeService.findAll();
 	}
 
 	@GetMapping("/page/{pageNumber}")
-	public List<EmployeeVO> findByPage(@PathVariable final int pageNumber) throws Exception {
+	public List<EmployeeVO> findByPage(@PathVariable final int pageNumber) {
 
 		return employeeService.findByPage(pageNumber);
 	}
 
 	@DeleteMapping("/{id}")
-	public EmployeeVO deleteById(@PathVariable final int id) throws Exception {
+	public EmployeeVO deleteById(@PathVariable final int id) {
 
 		return employeeService.deleteById(id);
 	}
 
 	@PutMapping
-	public EmployeeVO update(@RequestBody final EmployeeVO employeeVO) throws Exception {
+	public EmployeeVO update(@RequestBody final EmployeeVO employeeVO) {
 
 		return employeeService.update(employeeVO);
 	}

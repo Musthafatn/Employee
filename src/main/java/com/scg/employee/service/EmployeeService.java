@@ -6,18 +6,18 @@ import com.scg.employee.vo.EmployeeVO;
 
 public interface EmployeeService {
 
-	EmployeeVO insert(EmployeeVO employeeVO) throws Exception;
+	EmployeeVO insert(EmployeeVO employeeVO);
 
-	EmployeeVO findById(int id) throws Exception;
+	EmployeeVO findById(int id);
 
-	List<EmployeeVO> findByName(String name) throws Exception;
+	List<EmployeeVO> findByName(String name);
 
-	List<EmployeeVO> findAll() throws Exception;
+	List<EmployeeVO> findAll();
 
-	List<EmployeeVO> findByPage(int pageNumber) throws Exception;
+	List<EmployeeVO> findByPage(int pageNumber);
 
-	EmployeeVO deleteById(int id) throws Exception;
+	EmployeeVO deleteById(int id);
 
-	EmployeeVO update(final EmployeeVO employeeVO) throws Exception;
+	EmployeeVO update(final EmployeeVO employeeVO);
 
 }

@@ -6,18 +6,18 @@ import com.scg.employee.vo.DepartmentVO;
 
 public interface DepartmentDAO {
 
-	DepartmentVO insert(DepartmentVO departmentVO) throws Exception;
+	DepartmentVO insert(DepartmentVO departmentVO);
 
-	DepartmentVO findById(int id) throws Exception;
+	DepartmentVO findById(int id);
 
-	List<DepartmentVO> findByName(String name) throws Exception;
+	List<DepartmentVO> findByName(String name);
 
-	List<DepartmentVO> findAll() throws Exception;
+	List<DepartmentVO> findAll();
 
-	List<DepartmentVO> findByPage(int pageNumber) throws Exception;
+	List<DepartmentVO> findByPage(int pageNumber);
 
-	DepartmentVO deleteById(int id) throws Exception;
+	DepartmentVO deleteById(int id);
 
-	DepartmentVO update(DepartmentVO departmentVO) throws Exception;
+	DepartmentVO update(DepartmentVO departmentVO);
 
 }
