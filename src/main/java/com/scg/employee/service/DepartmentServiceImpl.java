@@ -19,99 +19,47 @@ public class DepartmentServiceImpl implements DepartmentService {
 
 	@Override
 	public DepartmentVO insert(final DepartmentVO departmentVO) throws Exception {
-		try {
 
-			return departmentDAO.insert(departmentVO);
-
-		} catch (final Exception e) {
-			log.info(e.getMessage());
-		}
-		return null;
+		return departmentDAO.insert(departmentVO);
 	}
 
 	@Override
 	public DepartmentVO findById(final int id) throws Exception {
-		try {
 
-			return departmentDAO.findById(id);
-
-		} catch (final Exception e) {
-			log.info(e.getMessage());
-		}
-		return null;
+		return departmentDAO.findById(id);
 	}
 
 	@Override
 	public List<DepartmentVO> findByName(final String name) throws Exception {
-		try {
 
-			final List<DepartmentVO> deptVOList = departmentDAO.findByName(name);
-			if (deptVOList.isEmpty()) {
-				throw new Exception("No records found");
-			}
-			return deptVOList;
-
-		} catch (final Exception e) {
-			log.info(e.getMessage());
-		}
-		return null;
+		final List<DepartmentVO> deptVOList = departmentDAO.findByName(name);
+		return deptVOList;
 	}
 
 	@Override
 	public List<DepartmentVO> findAll() throws Exception {
-		try {
 
-			final List<DepartmentVO> deptVOList = departmentDAO.findAll();
-			if (deptVOList.isEmpty()) {
-				throw new Exception("No records found");
-			}
-			return deptVOList;
-
-		} catch (final Exception e) {
-			log.info(e.getMessage());
-		}
-		return null;
+		final List<DepartmentVO> deptVOList = departmentDAO.findAll();
+		return deptVOList;
 	}
 
 	@Override
 	public List<DepartmentVO> findByPage(final int pageNumber) throws Exception {
-		try {
 
-			final List<DepartmentVO> deptVOList = departmentDAO.findByPage(pageNumber - 1);
-			if (deptVOList.isEmpty()) {
-				throw new Exception("No records found");
-			}
-			return deptVOList;
-
-		} catch (final Exception e) {
-			log.info(e.getMessage());
-		}
-		return null;
+		final List<DepartmentVO> deptVOList = departmentDAO.findByPage(pageNumber - 1);
+		return deptVOList;
 	}
 
 	@Override
 	public DepartmentVO deleteById(final int id) throws Exception {
 
-		try {
-
-			return departmentDAO.deleteById(id);
-
-		} catch (final Exception e) {
-			log.info(e.getMessage());
-		}
-		return null;
+		return departmentDAO.deleteById(id);
 	}
 
 	@Override
 	public DepartmentVO update(final DepartmentVO departmentVO) throws Exception {
-		try {
 
-			return departmentDAO.update(departmentVO);
-
-		} catch (final Exception e) {
-			log.info(e.getMessage());
-		}
-		return null;
+		return departmentDAO.update(departmentVO);
 	}
 
 }

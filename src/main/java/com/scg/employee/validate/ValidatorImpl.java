@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
 
 import org.springframework.stereotype.Component;
 
-import com.scg.employee.exception.InvalidInput;
+import com.scg.employee.exception.CustomException;
 import com.scg.employee.vo.EmployeeVO;
 
 @Component
@@ -15,7 +15,7 @@ public class ValidatorImpl implements Validator {
 	public void validateId(final int id) throws Exception {
 
 		if (id < 1) {
-			throw new InvalidInput("Invalid Id");
+			throw new CustomException("Invalid Id");
 		}
 
 	}
@@ -27,7 +27,7 @@ public class ValidatorImpl implements Validator {
 		final Pattern pattern = Pattern.compile(new String(format));
 		final Matcher matcher = pattern.matcher(name);
 		if (!matcher.matches()) {
-			throw new InvalidInput("Invalid name");
+			throw new CustomException("Invalid name");
 		}
 
 	}
@@ -36,7 +36,7 @@ public class ValidatorImpl implements Validator {
 	public void validateAge(final int age) throws Exception {
 
 		if (age < 5 || age > 100) {
-			throw new InvalidInput("Invalid Age");
+			throw new CustomException("Invalid Age");
 		}
 
 	}
@@ -45,7 +45,7 @@ public class ValidatorImpl implements Validator {
 	public void validateSalary(final int salary) throws Exception {
 
 		if (salary < 1000) {
-			throw new InvalidInput("Invalid Salary");
+			throw new CustomException("Invalid Salary");
 		}
 
 	}
@@ -62,16 +62,13 @@ public class ValidatorImpl implements Validator {
 		// validate salary
 		validateSalary(employeeVO.getSalary());
 
-		// validate dept id
-		// validateId(employeeVO.getDepartmentVO().getId());
-
 	}
 
 	@Override
 	public void validatePageNumber(final int pageNumber) throws Exception {
 
 		if (pageNumber < 1) {
-			throw new InvalidInput("Invalid page number");
+			throw new CustomException("Invalid page number");
 		}
 
 	}
