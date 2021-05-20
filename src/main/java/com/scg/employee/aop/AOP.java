@@ -1,6 +1,8 @@
 package com.scg.employee.aop;
 
+import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.After;
+import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.springframework.stereotype.Component;
@@ -24,6 +26,17 @@ public class AOP {
 
 		log.info("SMS send");
 
+	}
+
+	@Around("@annotation(ExecutionTime)")
+	public Object computeExecutionTime(final ProceedingJoinPoint joinPoint) throws Throwable {
+
+		final long start = System.currentTimeMillis();
+		final Object proceed = joinPoint.proceed();
+		final long executionTime = System.currentTimeMillis() - start;
+		final String message = joinPoint.getSignature().getName() + " executed in " + executionTime + " ms";
+		log.info(message);
+		return proceed;
 	}
 
 }

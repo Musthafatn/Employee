@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.scg.employee.aop.ExecutionTime;
 import com.scg.employee.service.EmployeeService;
 import com.scg.employee.vo.EmployeeVO;
 
@@ -40,6 +41,7 @@ public class EmployeeController {
 		return employeeService.findByName(name);
 	}
 
+	@ExecutionTime
 	@GetMapping("/list")
 	public List<EmployeeVO> findAll() throws Exception {
 
