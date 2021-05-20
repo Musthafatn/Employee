@@ -24,44 +24,44 @@ public class DepartmentController {
 	private DepartmentService departmentService;
 
 	@PostMapping
-	public DepartmentVO insert(@RequestBody final DepartmentVO departmentVO) throws Exception {
+	public DepartmentVO insert(@RequestBody final DepartmentVO departmentVO) {
 
 		return departmentService.insert(departmentVO);
 	}
 
 	@GetMapping("/id/{id}")
-	public DepartmentVO findById(@PathVariable final int id) throws Exception {
+	public DepartmentVO findById(@PathVariable final int id) {
 
 		return departmentService.findById(id);
 	}
 
 	@GetMapping("/name/{name}")
-	public List<DepartmentVO> findByName(@PathVariable final String name) throws Exception {
+	public List<DepartmentVO> findByName(@PathVariable final String name) {
 
 		return departmentService.findByName(name);
 	}
 
 	@ExecutionTime
 	@GetMapping("/list")
-	public List<DepartmentVO> findAll() throws Exception {
+	public List<DepartmentVO> findAll() {
 
 		return departmentService.findAll();
 	}
 
 	@GetMapping("/page/{pageNumber}")
-	public List<DepartmentVO> findByPage(@PathVariable final int pageNumber) throws Exception {
+	public List<DepartmentVO> findByPage(@PathVariable final int pageNumber) {
 
 		return departmentService.findByPage(pageNumber);
 	}
 
 	@DeleteMapping("/{id}")
-	public DepartmentVO deleteById(@PathVariable final int id) throws Exception {
+	public DepartmentVO deleteById(@PathVariable final int id) {
 
 		return departmentService.deleteById(id);
 	}
 
 	@PutMapping
-	public DepartmentVO update(@RequestBody final DepartmentVO departmentVO) throws Exception {
+	public DepartmentVO update(@RequestBody final DepartmentVO departmentVO) {
 
 		return departmentService.update(departmentVO);
 	}
