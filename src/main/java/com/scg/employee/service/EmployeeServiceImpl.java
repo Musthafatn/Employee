@@ -24,110 +24,52 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Override
 	public EmployeeVO insert(final EmployeeVO employeeVO) throws Exception {
 
-		try {
-
-			validator.validateEmployee(employeeVO);
-			return employeeDAO.insert(employeeVO);
-
-		} catch (final Exception e) {
-			log.info(e.getMessage());
-		}
-		return null;
+		validator.validateEmployee(employeeVO);
+		return employeeDAO.insert(employeeVO);
 	}
 
 	@Override
 	public EmployeeVO findById(final int id) throws Exception {
 
-		try {
-
-			validator.validateId(id);
-			return employeeDAO.findById(id);
-
-		} catch (final Exception e) {
-			log.info(e.getMessage());
-		}
-		return null;
+		validator.validateId(id);
+		return employeeDAO.findById(id);
 	}
 
 	@Override
 	public List<EmployeeVO> findByName(final String name) throws Exception {
 
-		try {
-
-			validator.validateName(name);
-			final List<EmployeeVO> employeeVOList = employeeDAO.findByName(name);
-			if (employeeVOList.isEmpty()) {
-				throw new Exception("No records found");
-			}
-			return employeeVOList;
-
-		} catch (final Exception e) {
-			log.info(e.getMessage());
-		}
-		return null;
+		validator.validateName(name);
+		final List<EmployeeVO> employeeVOList = employeeDAO.findByName(name);
+		return employeeVOList;
 	}
 
 	@Override
-	public List<EmployeeVO> findAll() {
+	public List<EmployeeVO> findAll() throws Exception {
 
-		try {
-
-			final List<EmployeeVO> employeeVOList = employeeDAO.findAll();
-			if (employeeVOList.isEmpty()) {
-				throw new Exception("No records found");
-			}
-			return employeeVOList;
-
-		} catch (final Exception e) {
-			log.info(e.getMessage());
-		}
-		return null;
+		final List<EmployeeVO> employeeVOList = employeeDAO.findAll();
+		return employeeVOList;
 	}
 
 	@Override
 	public List<EmployeeVO> findByPage(final int pageNumber) throws Exception {
 
-		try {
-
-			validator.validatePageNumber(pageNumber);
-			final List<EmployeeVO> employeeVOList = employeeDAO.findByPage(pageNumber - 1);
-			if (employeeVOList.isEmpty()) {
-				throw new Exception("No records found");
-			}
-			return employeeVOList;
-
-		} catch (final Exception e) {
-			log.info(e.getMessage());
-		}
-		return null;
+		validator.validatePageNumber(pageNumber);
+		final List<EmployeeVO> employeeVOList = employeeDAO.findByPage(pageNumber - 1);
+		return employeeVOList;
 	}
 
 	@Override
 	public EmployeeVO deleteById(final int id) throws Exception {
 
-		try {
-
-			validator.validateId(id);
-			return employeeDAO.deleteById(id);
-
-		} catch (final Exception e) {
-			log.info(e.getMessage());
-		}
-		return null;
+		validator.validateId(id);
+		return employeeDAO.deleteById(id);
 	}
 
 	@Override
 	public EmployeeVO update(final EmployeeVO employeeVO) throws Exception {
 
-		try {
-
-			validator.validateEmployee(employeeVO);
-			return employeeDAO.update(employeeVO);
-
-		} catch (final Exception e) {
-			log.info(e.getMessage());
-		}
-		return null;
+		validator.validateEmployee(employeeVO);
+		return employeeDAO.update(employeeVO);
 	}
 
 }
