@@ -23,3 +23,4 @@ public interface EmployeeMapper {
 }
 
 //, nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE
+//./gradlew clean  build -x test to get mapStruct
