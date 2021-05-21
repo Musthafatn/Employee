@@ -20,14 +20,10 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	@Autowired
 	private EmployeeRepository employeeRepository;
 
-//	@Autowired
-//	private AuditMapper auditMapper;
-
 	@Override
 	public EmployeeVO insert(final EmployeeVO employeeVO) throws Exception {
 
 		final Employee employee = employeeMapper.toEmployee(employeeVO);
-//		employee.setAudit(setAuditFieldsOnInsert());
 		employeeRepository.save(employee);
 		return employeeMapper.toEmployeeVO(employee);
 	}
@@ -77,26 +73,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 		employee.setName(employeeVO.getName());
 		employee.setAge(employeeVO.getAge());
 		employee.setSalary(employeeVO.getSalary());
-//		employee.setAudit(setAuditFieldsOnUpdate(employee.getAudit()));
 		return employeeMapper.toEmployeeVO(employeeRepository.save(employee));
 	}
-//
-//	public Audit setAuditFieldsOnInsert() {
-//
-//		final Audit audit = new Audit();
-//		audit.setCreatedBy(10L);
-//		audit.setCreatedTimestamp(LocalDateTime.now());
-//		audit.setRecordVersionNo(1);
-//		return audit;
-//
-//	}
-//
-//	public Audit setAuditFieldsOnUpdate(final Audit audit) {
-//
-//		audit.setLastUpdatedBy(10L);
-//		audit.setLastUpdatedTimestamp(LocalDateTime.now());
-//		audit.setRecordVersionNo(audit.getRecordVersionNo() + 1);
-//		return audit;
-//	}
 
 }
