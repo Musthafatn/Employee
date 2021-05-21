@@ -26,9 +26,6 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	@Autowired
 	private EmployeeRepository employeeRepository;
 
-//	@Autowired
-//	private EmployeeService employeeService;
-
 	@Override
 	public EmployeeVO insert(final EmployeeVO employeeVO) {
 
