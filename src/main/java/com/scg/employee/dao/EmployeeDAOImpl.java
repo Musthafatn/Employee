@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.scg.employee.dao.entity.Employee;
 import com.scg.employee.dao.repository.EmployeeRepository;
@@ -12,6 +14,9 @@ import com.scg.employee.exception.DataNotFoundException;
 import com.scg.employee.mapper.EmployeeMapper;
 import com.scg.employee.vo.EmployeeVO;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Component
 public class EmployeeDAOImpl implements EmployeeDAO {
 
@@ -20,6 +25,9 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 
 	@Autowired
 	private EmployeeRepository employeeRepository;
+
+//	@Autowired
+//	private EmployeeService employeeService;
 
 	@Override
 	public EmployeeVO insert(final EmployeeVO employeeVO) {
@@ -69,16 +77,15 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 		return employeeMapper.toEmployeeVO(employee);
 	}
 
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	@Override
 	public EmployeeVO update(final EmployeeVO employeeVO) {
 
-		final Employee employee = employeeMapper.toEmployee(employeeVO);
-
-//		final Employee employee = employeeRepository.findById(employeeVO.getId())
-//				.orElseThrow(() -> new CustomException("Employee not found"));
-//		employee.setName(employeeVO.getName());
-//		employee.setAge(employeeVO.getAge());
-//		employee.setSalary(employeeVO.getSalary());
+		final Employee employee = employeeRepository.findById(employeeVO.getId())
+				.orElseThrow(() -> new DataNotFoundException("Employee not found"));
+		employee.setName(employeeVO.getName());
+		employee.setAge(employeeVO.getAge());
+		employee.setSalary(employeeVO.getSalary());
 
 		return employeeMapper.toEmployeeVO(employeeRepository.save(employee));
 	}

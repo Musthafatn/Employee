@@ -5,8 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Isolation;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.scg.employee.dao.entity.Department;
 import com.scg.employee.dao.repository.DepartmentRepository;
@@ -33,19 +31,11 @@ public class DepartmentDAOImpl implements DepartmentDAO {
 		return departmentMapper.toDepartmentVO(departmentRepository.save(department));
 	}
 
-	@Transactional(isolation = Isolation.REPEATABLE_READ)
 	@Override
 	public DepartmentVO findById(final int id) {
 
 		final Department department = departmentRepository.findById(id)
 				.orElseThrow(() -> new DataNotFoundException("Department not found"));
-
-//		log.info(department.getName());
-//		department.setName("Updated_name");
-//		update(departmentMapper.toDepartmentVO(department));
-//		final Department updatedDepartment = departmentRepository.findById(id).orElseThrow();
-//		log.info(updatedDepartment.getName());
-
 		return departmentMapper.toDepartmentVO(department);
 	}
 
@@ -80,13 +70,12 @@ public class DepartmentDAOImpl implements DepartmentDAO {
 		return departmentMapper.toDepartmentVO(department);
 	}
 
-	@Transactional
 	@Override
 	public DepartmentVO update(final DepartmentVO departmentVO) {
 
 		final Department department = departmentRepository.findById(departmentVO.getId())
 				.orElseThrow(() -> new DataNotFoundException("Department not found"));
-		department.setName(department.getName());
+		department.setName(departmentVO.getName());
 		return departmentMapper.toDepartmentVO(departmentRepository.save(department));
 	}
 
