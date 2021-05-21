@@ -12,6 +12,6 @@ public class EmployeeVO {
 	private int age;
 	private int salary;
 	private DepartmentVO department;
-	private AuditVO audit;
+//	private AuditVO audit;
 
 }

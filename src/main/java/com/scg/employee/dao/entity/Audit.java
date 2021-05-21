@@ -32,12 +32,4 @@ public class Audit {
 	@Column(name = "record_version_no")
 	private Integer recordVersionNo;
 
-//	@PreUpdate
-//	private void setAuditFieldsOnUpdate(final Employee employee) {
-//
-//		employee.getAudit().setLastUpdatedBy(10L);
-//		employee.getAudit().setLastUpdatedTimestamp(LocalDateTime.now());
-//		employee.getAudit().setRecordVersionNo(employee.getAudit().getRecordVersionNo() + 1);
-//	}
-
 }
