@@ -4,8 +4,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.scg.employee.dao.EmployeeDAO;
+import com.scg.employee.exception.DataNotFoundException;
 import com.scg.employee.validate.Validator;
 import com.scg.employee.vo.EmployeeVO;
 
@@ -22,112 +25,74 @@ public class EmployeeServiceImpl implements EmployeeService {
 	private Validator validator;
 
 	@Override
-	public EmployeeVO insert(final EmployeeVO employeeVO) throws Exception {
+	public EmployeeVO insert(final EmployeeVO employeeVO) {
 
-		try {
+		validator.validateEmployee(employeeVO);
+		return employeeDAO.insert(employeeVO);
+	}
 
-			validator.validateEmployee(employeeVO);
-			return employeeDAO.insert(employeeVO);
+	@Transactional(isolation = Isolation.REPEATABLE_READ)
+	@Override
+	public EmployeeVO findById(final int id) {
 
-		} catch (final Exception e) {
-			log.info(e.getMessage());
-		}
-		return null;
+		validator.validateId(id);
+		final EmployeeVO employeeVO = employeeDAO.findById(id);
+
+		log.info("Transaction1.Salary: " + employeeVO.getSalary());
+		employeeVO.setSalary(employeeVO.getSalary() + 55);
+		final EmployeeVO updatedEmployee = employeeDAO.update(employeeVO);
+		log.info("Transaction2.Salary: " + updatedEmployee.getSalary());
+		final EmployeeVO oldEmployee = employeeDAO.findById(id);
+		log.info("Transaction1.Salary: " + oldEmployee.getSalary());
+
+		return employeeVO;
+
 	}
 
 	@Override
-	public EmployeeVO findById(final int id) throws Exception {
+	public List<EmployeeVO> findByName(final String name) {
 
-		try {
-
-			validator.validateId(id);
-			return employeeDAO.findById(id);
-
-		} catch (final Exception e) {
-			log.info(e.getMessage());
+		validator.validateName(name);
+		final List<EmployeeVO> employeeVOList = employeeDAO.findByName(name);
+		if (employeeVOList.isEmpty()) {
+			throw new DataNotFoundException("No data found");
 		}
-		return null;
-	}
-
-	@Override
-	public List<EmployeeVO> findByName(final String name) throws Exception {
-
-		try {
-
-			validator.validateName(name);
-			final List<EmployeeVO> employeeVOList = employeeDAO.findByName(name);
-			if (employeeVOList.isEmpty()) {
-				throw new Exception("No records found");
-			}
-			return employeeVOList;
-
-		} catch (final Exception e) {
-			log.info(e.getMessage());
-		}
-		return null;
+		return employeeVOList;
 	}
 
 	@Override
 	public List<EmployeeVO> findAll() {
 
-		try {
-
-			final List<EmployeeVO> employeeVOList = employeeDAO.findAll();
-			if (employeeVOList.isEmpty()) {
-				throw new Exception("No records found");
-			}
-			return employeeVOList;
-
-		} catch (final Exception e) {
-			log.info(e.getMessage());
+		final List<EmployeeVO> employeeVOList = employeeDAO.findAll();
+		if (employeeVOList.isEmpty()) {
+			throw new DataNotFoundException("No data found");
 		}
-		return null;
+		return employeeVOList;
 	}
 
 	@Override
-	public List<EmployeeVO> findByPage(final int pageNumber) throws Exception {
+	public List<EmployeeVO> findByPage(final int pageNumber) {
 
-		try {
-
-			validator.validatePageNumber(pageNumber);
-			final List<EmployeeVO> employeeVOList = employeeDAO.findByPage(pageNumber - 1);
-			if (employeeVOList.isEmpty()) {
-				throw new Exception("No records found");
-			}
-			return employeeVOList;
-
-		} catch (final Exception e) {
-			log.info(e.getMessage());
+		validator.validatePageNumber(pageNumber);
+		final List<EmployeeVO> employeeVOList = employeeDAO.findByPage(pageNumber - 1);
+		if (employeeVOList.isEmpty()) {
+			throw new DataNotFoundException("No data found");
 		}
-		return null;
+		return employeeVOList;
 	}
 
 	@Override
-	public EmployeeVO deleteById(final int id) throws Exception {
+	public EmployeeVO deleteById(final int id) {
 
-		try {
-
-			validator.validateId(id);
-			return employeeDAO.deleteById(id);
-
-		} catch (final Exception e) {
-			log.info(e.getMessage());
-		}
-		return null;
+		validator.validateId(id);
+		return employeeDAO.deleteById(id);
 	}
 
 	@Override
-	public EmployeeVO update(final EmployeeVO employeeVO) throws Exception {
+	public EmployeeVO update(final EmployeeVO employeeVO) {
 
-		try {
-
-			validator.validateEmployee(employeeVO);
-			return employeeDAO.update(employeeVO);
-
-		} catch (final Exception e) {
-			log.info(e.getMessage());
-		}
-		return null;
+		validator.validateEmployee(employeeVO);
+		return employeeDAO.update(employeeVO);
 	}
 
 }

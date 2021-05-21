@@ -21,3 +21,6 @@ public interface EmployeeMapper {
 	List<Employee> toEmployeeList(List<EmployeeVO> employeeVOList);
 
 }
+
+//, nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE
+//./gradlew clean  build -x test to get mapStruct

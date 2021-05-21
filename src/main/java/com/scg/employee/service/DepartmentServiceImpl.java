@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.scg.employee.dao.DepartmentDAO;
+import com.scg.employee.exception.DataNotFoundException;
+import com.scg.employee.validate.Validator;
 import com.scg.employee.vo.DepartmentVO;
 
 import lombok.extern.slf4j.Slf4j;
@@ -16,102 +18,67 @@ public class DepartmentServiceImpl implements DepartmentService {
 
 	@Autowired
 	private DepartmentDAO departmentDAO;
+	@Autowired
+	private Validator validator;
 
 	@Override
-	public DepartmentVO insert(final DepartmentVO departmentVO) throws Exception {
-		try {
+	public DepartmentVO insert(final DepartmentVO departmentVO) {
 
-			return departmentDAO.insert(departmentVO);
-
-		} catch (final Exception e) {
-			log.info(e.getMessage());
-		}
-		return null;
+		validator.validateName(departmentVO.getName());
+		return departmentDAO.insert(departmentVO);
 	}
 
 	@Override
-	public DepartmentVO findById(final int id) throws Exception {
-		try {
+	public DepartmentVO findById(final int id) {
 
-			return departmentDAO.findById(id);
-
-		} catch (final Exception e) {
-			log.info(e.getMessage());
-		}
-		return null;
+		validator.validateId(id);
+		return departmentDAO.findById(id);
 	}
 
 	@Override
-	public List<DepartmentVO> findByName(final String name) throws Exception {
-		try {
+	public List<DepartmentVO> findByName(final String name) {
 
-			final List<DepartmentVO> deptVOList = departmentDAO.findByName(name);
-			if (deptVOList.isEmpty()) {
-				throw new Exception("No records found");
-			}
-			return deptVOList;
-
-		} catch (final Exception e) {
-			log.info(e.getMessage());
+		validator.validateName(name);
+		final List<DepartmentVO> deptVOList = departmentDAO.findByName(name);
+		if (deptVOList.isEmpty()) {
+			throw new DataNotFoundException("No data found");
 		}
-		return null;
+		return deptVOList;
 	}
 
 	@Override
-	public List<DepartmentVO> findAll() throws Exception {
-		try {
+	public List<DepartmentVO> findAll() {
 
-			final List<DepartmentVO> deptVOList = departmentDAO.findAll();
-			if (deptVOList.isEmpty()) {
-				throw new Exception("No records found");
-			}
-			return deptVOList;
-
-		} catch (final Exception e) {
-			log.info(e.getMessage());
+		final List<DepartmentVO> deptVOList = departmentDAO.findAll();
+		if (deptVOList.isEmpty()) {
+			throw new DataNotFoundException("No data found");
 		}
-		return null;
+		return deptVOList;
 	}
 
 	@Override
-	public List<DepartmentVO> findByPage(final int pageNumber) throws Exception {
-		try {
+	public List<DepartmentVO> findByPage(final int pageNumber) {
 
-			final List<DepartmentVO> deptVOList = departmentDAO.findByPage(pageNumber - 1);
-			if (deptVOList.isEmpty()) {
-				throw new Exception("No records found");
-			}
-			return deptVOList;
-
-		} catch (final Exception e) {
-			log.info(e.getMessage());
+		validator.validatePageNumber(pageNumber);
+		final List<DepartmentVO> deptVOList = departmentDAO.findByPage(pageNumber - 1);
+		if (deptVOList.isEmpty()) {
+			throw new DataNotFoundException("No data found");
 		}
-		return null;
+		return deptVOList;
 	}
 
 	@Override
-	public DepartmentVO deleteById(final int id) throws Exception {
+	public DepartmentVO deleteById(final int id) {
 
-		try {
-
-			return departmentDAO.deleteById(id);
-
-		} catch (final Exception e) {
-			log.info(e.getMessage());
-		}
-		return null;
+		validator.validateId(id);
+		return departmentDAO.deleteById(id);
 	}
 
 	@Override
-	public DepartmentVO update(final DepartmentVO departmentVO) throws Exception {
-		try {
+	public DepartmentVO update(final DepartmentVO departmentVO) {
 
-			return departmentDAO.update(departmentVO);
-
-		} catch (final Exception e) {
-			log.info(e.getMessage());
-		}
-		return null;
+		validator.validateDept(departmentVO);
+		return departmentDAO.update(departmentVO);
 	}
 
 }
