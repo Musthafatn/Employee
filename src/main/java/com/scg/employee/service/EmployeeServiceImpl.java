@@ -4,8 +4,12 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.scg.employee.dao.EmployeeDAO;
+import com.scg.employee.dao.entity.Employee;
+import com.scg.employee.dao.repository.EmployeeRepository;
 import com.scg.employee.exception.DataNotFoundException;
 import com.scg.employee.validate.Validator;
 import com.scg.employee.vo.EmployeeVO;
@@ -22,6 +26,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Autowired
 	private Validator validator;
 
+	@Autowired
+	private EmployeeRepository employeeRepository;
+
 	@Override
 	public EmployeeVO insert(final EmployeeVO employeeVO) {
 
@@ -30,10 +37,21 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Override
+	@Transactional(isolation = Isolation.REPEATABLE_READ)
 	public EmployeeVO findById(final int id) {
 
 		validator.validateId(id);
-		return employeeDAO.findById(id);
+		final EmployeeVO employeeVO = employeeDAO.findById(id);
+
+		log.info("Transaction1.Salary: " + employeeVO.getSalary());
+		employeeVO.setSalary(employeeVO.getSalary() + 55);
+		final EmployeeVO updatedEmployee = employeeDAO.update(employeeVO);
+		log.info("Transaction2.Salary: " + updatedEmployee.getSalary());
+		final Employee oldEmployee = employeeRepository.findById(id).orElse(null);
+		log.info("Transaction1.Salary: " + oldEmployee.getSalary());
+
+		return employeeVO;
+
 	}
 
 	@Override
