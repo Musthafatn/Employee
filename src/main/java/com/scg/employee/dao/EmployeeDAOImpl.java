@@ -10,7 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.scg.employee.dao.entity.Employee;
 import com.scg.employee.dao.repository.EmployeeRepository;
-import com.scg.employee.exception.DataNotFoundException;
+import com.scg.employee.exception.ApiException;
+import com.scg.employee.exception.ErrorCode;
 import com.scg.employee.mapper.EmployeeMapper;
 import com.scg.employee.vo.EmployeeVO;
 
@@ -38,7 +39,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	public EmployeeVO findById(final int id) {
 
 		final Employee employee = employeeRepository.findById(id)
-				.orElseThrow(() -> new DataNotFoundException("Employee not found"));
+				.orElseThrow(() -> new ApiException(ErrorCode.EMPLOYEE_NOT_FOUND));
 		return employeeMapper.toEmployeeVO(employee);
 	}
 
@@ -69,7 +70,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	public EmployeeVO deleteById(final int id) {
 
 		final Employee employee = employeeRepository.findById(id)
-				.orElseThrow(() -> new DataNotFoundException("Employee not found"));
+				.orElseThrow(() -> new ApiException(ErrorCode.EMPLOYEE_NOT_FOUND));
 		employeeRepository.deleteById(id);
 		return employeeMapper.toEmployeeVO(employee);
 	}
@@ -79,7 +80,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	public EmployeeVO update(final EmployeeVO employeeVO) {
 
 		final Employee employee = employeeRepository.findById(employeeVO.getId())
-				.orElseThrow(() -> new DataNotFoundException("Employee not found"));
+				.orElseThrow(() -> new ApiException(ErrorCode.EMPLOYEE_NOT_FOUND));
 		employee.setName(employeeVO.getName());
 		employee.setAge(employeeVO.getAge());
 		employee.setSalary(employeeVO.getSalary());

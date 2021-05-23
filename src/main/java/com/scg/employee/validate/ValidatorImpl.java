@@ -5,7 +5,8 @@ import java.util.regex.Pattern;
 
 import org.springframework.stereotype.Component;
 
-import com.scg.employee.exception.DataNotFoundException;
+import com.scg.employee.exception.ApiException;
+import com.scg.employee.exception.ErrorCode;
 import com.scg.employee.vo.DepartmentVO;
 import com.scg.employee.vo.EmployeeVO;
 
@@ -16,7 +17,7 @@ public class ValidatorImpl implements Validator {
 	public void validateId(final int id) {
 
 		if (id < 1) {
-			throw new DataNotFoundException("Invalid Id");
+			throw new ApiException(ErrorCode.INVALID_ID);
 		}
 
 	}
@@ -28,7 +29,7 @@ public class ValidatorImpl implements Validator {
 		final Pattern pattern = Pattern.compile(new String(format));
 		final Matcher matcher = pattern.matcher(name);
 		if (!matcher.matches()) {
-			throw new DataNotFoundException("Invalid name");
+			throw new ApiException(ErrorCode.INVALID_NAME);
 		}
 
 	}
@@ -37,7 +38,7 @@ public class ValidatorImpl implements Validator {
 	public void validateAge(final int age) {
 
 		if (age < 5 || age > 100) {
-			throw new DataNotFoundException("Invalid Age");
+			throw new ApiException(ErrorCode.INVALID_AGE);
 		}
 
 	}
@@ -46,7 +47,7 @@ public class ValidatorImpl implements Validator {
 	public void validateSalary(final int salary) {
 
 		if (salary < 1000) {
-			throw new DataNotFoundException("Invalid Salary");
+			throw new ApiException(ErrorCode.INVALID_SALARY);
 		}
 
 	}
@@ -69,7 +70,7 @@ public class ValidatorImpl implements Validator {
 	public void validatePageNumber(final int pageNumber) {
 
 		if (pageNumber < 1) {
-			throw new DataNotFoundException("Invalid page number");
+			throw new ApiException(ErrorCode.INVALID_PAGE);
 		}
 
 	}

@@ -6,7 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.scg.employee.dao.DepartmentDAO;
-import com.scg.employee.exception.DataNotFoundException;
+import com.scg.employee.exception.ApiException;
+import com.scg.employee.exception.ErrorCode;
 import com.scg.employee.validate.Validator;
 import com.scg.employee.vo.DepartmentVO;
 
@@ -41,7 +42,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 		validator.validateName(name);
 		final List<DepartmentVO> deptVOList = departmentDAO.findByName(name);
 		if (deptVOList.isEmpty()) {
-			throw new DataNotFoundException("No data found");
+			throw new ApiException(ErrorCode.NO_DATA_FOUND);
 		}
 		return deptVOList;
 	}
@@ -51,7 +52,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 
 		final List<DepartmentVO> deptVOList = departmentDAO.findAll();
 		if (deptVOList.isEmpty()) {
-			throw new DataNotFoundException("No data found");
+			throw new ApiException(ErrorCode.NO_DATA_FOUND);
 		}
 		return deptVOList;
 	}
@@ -62,7 +63,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 		validator.validatePageNumber(pageNumber);
 		final List<DepartmentVO> deptVOList = departmentDAO.findByPage(pageNumber - 1);
 		if (deptVOList.isEmpty()) {
-			throw new DataNotFoundException("No data found");
+			throw new ApiException(ErrorCode.NO_DATA_FOUND);
 		}
 		return deptVOList;
 	}
