@@ -4,7 +4,6 @@ import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -42,9 +41,12 @@ public class Employee implements Auditable {
 	private int salary;
 
 	@Setter
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "dept_id")
-//	@JoinColumn(name = "dept_id", referencedColumnName = "id", insertable = false, updatable = false)
+	@Column(name = "dept_id")
+	private int deptId;
+
+	@Setter
+	@ManyToOne
+	@JoinColumn(name = "dept_id", referencedColumnName = "id", insertable = false, updatable = false)
 	private Department department;
 
 	@Setter

@@ -11,7 +11,8 @@ public class EmployeeVO {
 	private String name;
 	private int age;
 	private int salary;
-	private DepartmentVO department;
+	private int deptId;
+//	private DepartmentVO department;
 //	private AuditVO audit;
 
 }

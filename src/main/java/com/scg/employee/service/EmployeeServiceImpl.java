@@ -45,6 +45,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 		final EmployeeVO oldEmployee = employeeDAO.findById(id);
 		log.info("Transaction1.Salary: " + oldEmployee.getSalary());
 
+		oldEmployee.setSalary(oldEmployee.getSalary() + 55);
+		final EmployeeVO updatedEmployee2 = employeeDAO.update(oldEmployee);
+		log.info("Transaction2.1.Salary: " + updatedEmployee2.getSalary());
+		final EmployeeVO oldEmployee2 = employeeDAO.findById(id);
+		log.info("Transaction1.1.Salary: " + oldEmployee2.getSalary());
+
 		return employeeVO;
 
 	}
