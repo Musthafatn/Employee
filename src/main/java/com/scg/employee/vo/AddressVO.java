@@ -1,7 +1,5 @@
 package com.scg.employee.vo;
 
-import java.util.List;
-
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -9,10 +7,12 @@ import lombok.ToString;
 @ToString
 @Getter
 @Setter
-public class DepartmentVO {
+public class AddressVO {
 
 	private int id;
-	private String name;
-	private List<EmployeeVO> employeeList;
-//	private AuditVO audit;
+	private int empId;
+	private String houseName;
+	private String po;
+	private String district;
+
 }

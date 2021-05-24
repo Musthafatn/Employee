@@ -17,7 +17,9 @@ import com.scg.employee.audit.Auditable;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
+@ToString
 @Getter
 @EntityListeners(AuditListener.class)
 @Entity
