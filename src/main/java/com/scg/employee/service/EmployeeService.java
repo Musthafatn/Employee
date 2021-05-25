@@ -20,4 +20,6 @@ public interface EmployeeService {
 
 	EmployeeVO update(final EmployeeVO employeeVO);
 
+	String getDept(int id);
+
 }

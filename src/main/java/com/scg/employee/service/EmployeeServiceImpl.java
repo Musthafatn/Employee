@@ -59,7 +59,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Override
 	public List<EmployeeVO> findByName(final String name) {
 
-		validator.validateName(name);
+//		validator.validateName(name);
 		final List<EmployeeVO> employeeVOList = employeeDAO.findByName(name);
 		if (employeeVOList.isEmpty()) {
 			throw new ApiException(ErrorCode.NO_DATA_FOUND);
@@ -100,6 +100,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 		validator.validateEmployee(employeeVO);
 		return employeeDAO.update(employeeVO);
+	}
+
+	@Override
+	public String getDept(final int id) {
+
+		return employeeDAO.getDept(id);
 	}
 
 }

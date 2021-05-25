@@ -66,4 +66,11 @@ public class EmployeeController {
 		return employeeService.update(employeeVO);
 	}
 
+	@GetMapping("/dept/{id}")
+	public String getDept(@PathVariable final int id) {
+
+		final String department = employeeService.getDept(id);
+		return department;
+	}
+
 }

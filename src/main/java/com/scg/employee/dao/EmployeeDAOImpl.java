@@ -54,7 +54,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	@Override
 	public List<EmployeeVO> findByName(final String name) {
 
-		final List<Employee> entityList = employeeRepository.findByName(name);
+		final List<Employee> entityList = employeeRepository.findByNameFormat(name);
 		return employeeMapper.toEmployeeVOList(entityList);
 	}
 
@@ -93,6 +93,12 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 		employee.setAge(employeeVO.getAge());
 		employee.setSalary(employeeVO.getSalary());
 		return employeeMapper.toEmployeeVO(employeeRepository.save(employee));
+	}
+
+	@Override
+	public String getDept(final int id) {
+
+		return employeeRepository.getDeptByEmpId(id);
 	}
 
 }

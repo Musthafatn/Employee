@@ -20,4 +20,6 @@ public interface EmployeeDAO {
 
 	EmployeeVO update(EmployeeVO employeeVO);
 
+	String getDept(int id);
+
 }
