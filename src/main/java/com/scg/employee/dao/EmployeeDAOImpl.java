@@ -12,7 +12,6 @@ import com.scg.employee.dao.entity.Employee;
 import com.scg.employee.dao.repository.EmployeeRepository;
 import com.scg.employee.exception.ApiException;
 import com.scg.employee.exception.ErrorCode;
-import com.scg.employee.fiegn.AddressProxy;
 import com.scg.employee.mapper.EmployeeMapper;
 import com.scg.employee.vo.EmployeeVO;
 
@@ -28,8 +27,8 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	@Autowired
 	private EmployeeRepository employeeRepository;
 
-	@Autowired
-	private AddressProxy addressProxy;
+//	@Autowired
+//	private AddressProxy addressProxy;
 
 	@Override
 	public EmployeeVO insert(final EmployeeVO employeeVO) {
@@ -45,8 +44,8 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 		final Employee employee = employeeRepository.findById(id)
 				.orElseThrow(() -> new ApiException(ErrorCode.EMPLOYEE_NOT_FOUND));
 
-		final String address = addressProxy.getAddressByEmpId(id);
-		log.info(address);
+//		final String address = addressProxy.getAddressByEmpId(id);
+//		log.info(address);
 
 		return employeeMapper.toEmployeeVO(employee);
 	}

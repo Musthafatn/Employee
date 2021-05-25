@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum ErrorCode implements BaseCode {
+public enum ErrorCode  {
 
 	EMPLOYEE_NOT_FOUND("No employee with this id"), 
 	DEPT_NOT_FOUND("No department with this id"),
