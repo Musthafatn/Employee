@@ -13,9 +13,6 @@ import com.scg.employee.exception.ErrorCode;
 import com.scg.employee.mapper.DepartmentMapper;
 import com.scg.employee.vo.DepartmentVO;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 @Component
 public class DepartmentDAOImpl implements DepartmentDAO {
 
@@ -28,14 +25,14 @@ public class DepartmentDAOImpl implements DepartmentDAO {
 	@Override
 	public DepartmentVO insert(final DepartmentVO departmentVO) {
 
-		final Department department = departmentMapper.toDepartment(departmentVO);
+		final var department = departmentMapper.toDepartment(departmentVO);
 		return departmentMapper.toDepartmentVO(departmentRepository.save(department));
 	}
 
 	@Override
 	public DepartmentVO findById(final int id) {
 
-		final Department department = departmentRepository.findById(id)
+		final var department = departmentRepository.findById(id)
 				.orElseThrow(() -> new ApiException(ErrorCode.DEPT_NOT_FOUND));
 		return departmentMapper.toDepartmentVO(department);
 	}
@@ -65,7 +62,7 @@ public class DepartmentDAOImpl implements DepartmentDAO {
 	@Override
 	public DepartmentVO deleteById(final int id) {
 
-		final Department department = departmentRepository.findById(id)
+		final var department = departmentRepository.findById(id)
 				.orElseThrow(() -> new ApiException(ErrorCode.DEPT_NOT_FOUND));
 		departmentRepository.deleteById(id);
 		return departmentMapper.toDepartmentVO(department);
@@ -74,7 +71,7 @@ public class DepartmentDAOImpl implements DepartmentDAO {
 	@Override
 	public DepartmentVO update(final DepartmentVO departmentVO) {
 
-		final Department department = departmentRepository.findById(departmentVO.getId())
+		final var department = departmentRepository.findById(departmentVO.getId())
 				.orElseThrow(() -> new ApiException(ErrorCode.DEPT_NOT_FOUND));
 		department.setName(departmentVO.getName());
 		return departmentMapper.toDepartmentVO(departmentRepository.save(department));

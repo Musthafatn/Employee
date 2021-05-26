@@ -69,8 +69,7 @@ public class EmployeeController {
 	@GetMapping("/dept/{id}")
 	public String getDept(@PathVariable final int id) {
 
-		final String department = employeeService.getDept(id);
-		return department;
+		return employeeService.getDept(id);
 	}
 
 }

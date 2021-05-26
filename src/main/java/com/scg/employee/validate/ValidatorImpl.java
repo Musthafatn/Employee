@@ -1,6 +1,5 @@
 package com.scg.employee.validate;
 
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.springframework.stereotype.Component;
@@ -25,9 +24,9 @@ public class ValidatorImpl implements Validator {
 	@Override
 	public void validateName(final String name) {
 
-		final String format = "^[a-zA-Z\\s]*$";
-		final Pattern pattern = Pattern.compile(new String(format));
-		final Matcher matcher = pattern.matcher(name);
+		final var format = "^[a-zA-Z\\s]*$";
+		final var pattern = Pattern.compile(format);
+		final var matcher = pattern.matcher(name);
 		if (!matcher.matches()) {
 			throw new ApiException(ErrorCode.INVALID_NAME);
 		}

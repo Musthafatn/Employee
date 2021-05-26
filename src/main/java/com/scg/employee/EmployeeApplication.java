@@ -8,8 +8,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @SpringBootApplication
 public class EmployeeApplication {
 
-	@SuppressWarnings("resource")
-	public static void main(final String[] args) throws Exception {
+	public static void main(final String[] args) {
 		SpringApplication.run(EmployeeApplication.class, args);
 
 	}

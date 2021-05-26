@@ -33,7 +33,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	@Override
 	public EmployeeVO insert(final EmployeeVO employeeVO) {
 
-		final Employee employee = employeeMapper.toEmployee(employeeVO);
+		final var employee = employeeMapper.toEmployee(employeeVO);
 		employeeRepository.save(employee);
 		return employeeMapper.toEmployeeVO(employee);
 	}
@@ -41,7 +41,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	@Override
 	public EmployeeVO findById(final int id) {
 
-		final Employee employee = employeeRepository.findById(id)
+		final var employee = employeeRepository.findById(id)
 				.orElseThrow(() -> new ApiException(ErrorCode.EMPLOYEE_NOT_FOUND));
 
 //		final String address = addressProxy.getAddressByEmpId(id);
@@ -67,8 +67,8 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	@Override
 	public List<EmployeeVO> findByPage(final int pageNumber) {
 
-		final int pageSize = 3;
-		final PageRequest pageRequest = PageRequest.of(pageNumber, pageSize);
+		final var pageSize = 3;
+		final var pageRequest = PageRequest.of(pageNumber, pageSize);
 		final List<Employee> employeeList = employeeRepository.findAll(pageRequest).getContent();
 		return employeeMapper.toEmployeeVOList(employeeList);
 	}
@@ -76,7 +76,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	@Override
 	public EmployeeVO deleteById(final int id) {
 
-		final Employee employee = employeeRepository.findById(id)
+		final var employee = employeeRepository.findById(id)
 				.orElseThrow(() -> new ApiException(ErrorCode.EMPLOYEE_NOT_FOUND));
 		employeeRepository.deleteById(id);
 		return employeeMapper.toEmployeeVO(employee);
@@ -86,7 +86,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	@Override
 	public EmployeeVO update(final EmployeeVO employeeVO) {
 
-		final Employee employee = employeeRepository.findById(employeeVO.getId())
+		final var employee = employeeRepository.findById(employeeVO.getId())
 				.orElseThrow(() -> new ApiException(ErrorCode.EMPLOYEE_NOT_FOUND));
 		employee.setName(employeeVO.getName());
 		employee.setAge(employeeVO.getAge());
