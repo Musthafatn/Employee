@@ -4,8 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.scg.employee.dao.EmployeeDAO;
 import com.scg.employee.exception.ApiException;
@@ -32,7 +30,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return employeeDAO.insert(employeeVO);
 	}
 
-	@Transactional(isolation = Isolation.REPEATABLE_READ)
+//	@Transactional(isolation = Isolation.REPEATABLE_READ)
 	@Override
 	public EmployeeVO findById(final int id) {
 
@@ -98,7 +96,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Override
 	public EmployeeVO update(final EmployeeVO employeeVO) {
 
-		validator.validateEmployee(employeeVO);
+//		validator.validateEmployee(employeeVO);
 		return employeeDAO.update(employeeVO);
 	}
 

@@ -9,11 +9,11 @@ import lombok.ToString;
 @Setter
 public class EmployeeVO {
 
-	private int id;
+	private Integer id;
 	private String name;
-	private int age;
-	private int salary;
-	private int deptId;
+	private Integer age;
+	private Integer salary;
+	private Integer deptId;
 //	private DepartmentVO department;
 //	private AuditVO audit;
 

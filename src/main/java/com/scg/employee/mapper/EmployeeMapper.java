@@ -2,7 +2,10 @@ package com.scg.employee.mapper;
 
 import java.util.List;
 
+import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
+import org.mapstruct.MappingTarget;
+import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.springframework.stereotype.Component;
 
 import com.scg.employee.dao.entity.Employee;
@@ -20,7 +23,7 @@ public interface EmployeeMapper {
 
 	List<Employee> toEmployeeList(List<EmployeeVO> employeeVOList);
 
-}
+	@BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+	void toEmployee(EmployeeVO employeeVO, @MappingTarget Employee employee);
 
-//, nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE
-//./gradlew clean  build -x test to get mapStruct
+}

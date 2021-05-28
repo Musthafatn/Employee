@@ -5,8 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.scg.employee.dao.entity.Employee;
 import com.scg.employee.dao.repository.EmployeeRepository;
@@ -82,15 +80,13 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 		return employeeMapper.toEmployeeVO(employee);
 	}
 
-	@Transactional(propagation = Propagation.REQUIRES_NEW)
+//	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	@Override
 	public EmployeeVO update(final EmployeeVO employeeVO) {
 
 		final var employee = employeeRepository.findById(employeeVO.getId())
 				.orElseThrow(() -> new ApiException(ErrorCode.EMPLOYEE_NOT_FOUND));
-		employee.setName(employeeVO.getName());
-		employee.setAge(employeeVO.getAge());
-		employee.setSalary(employeeVO.getSalary());
+		employeeMapper.toEmployee(employeeVO, employee);
 		return employeeMapper.toEmployeeVO(employeeRepository.save(employee));
 	}
 

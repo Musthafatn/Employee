@@ -28,7 +28,7 @@ public class Employee implements Auditable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
-	private int id;
+	private Integer id;
 
 	@Setter
 	@Column(name = "name")
@@ -36,15 +36,15 @@ public class Employee implements Auditable {
 
 	@Setter
 	@Column(name = "age")
-	private int age;
+	private Integer age;
 
 	@Setter
 	@Column(name = "salary")
-	private int salary;
+	private Integer salary;
 
 	@Setter
 	@Column(name = "dept_id")
-	private int deptId;
+	private Integer deptId;
 
 	@Setter
 	@ManyToOne

@@ -11,7 +11,7 @@ import lombok.ToString;
 @Setter
 public class DepartmentVO {
 
-	private int id;
+	private Integer id;
 	private String name;
 	private List<EmployeeVO> employeeList;
 //	private AuditVO audit;

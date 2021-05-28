@@ -30,7 +30,7 @@ public class Department implements Auditable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
-	private int id;
+	private Integer id;
 
 	@Setter
 	@Column(name = "name")

@@ -30,11 +30,14 @@ public class AOP {
 
 	@Around("@annotation(ExecutionTime)")
 	public Object computeExecutionTime(final ProceedingJoinPoint joinPoint) throws Throwable {
-
+//		StopWatch s=new StopWatch();
+//		s.start();
 		final long start = System.currentTimeMillis();
 		final Object proceed = joinPoint.proceed();
 		final long executionTime = System.currentTimeMillis() - start;
 		final String message = joinPoint.getSignature().getName() + " executed in " + executionTime + " ms";
+//		s.stop();
+//		s.getTotalTimeMillis();
 		log.info(message);
 		return proceed;
 	}
