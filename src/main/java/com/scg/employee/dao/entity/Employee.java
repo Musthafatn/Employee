@@ -1,5 +1,6 @@
 package com.scg.employee.dao.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -20,6 +21,7 @@ import lombok.ToString;
 
 @ToString
 @Getter
+@Setter
 @Entity
 @Table(name = "employee")
 @EntityListeners(AuditListener.class)
@@ -30,28 +32,19 @@ public class Employee implements Auditable {
 	@Column(name = "id")
 	private Integer id;
 
-	@Setter
 	@Column(name = "name")
 	private String name;
 
-	@Setter
 	@Column(name = "age")
 	private Integer age;
 
-	@Setter
 	@Column(name = "salary")
 	private Integer salary;
 
-	@Setter
-	@Column(name = "dept_id")
-	private Integer deptId;
-
-	@Setter
-	@ManyToOne
-	@JoinColumn(name = "dept_id", referencedColumnName = "id", insertable = false, updatable = false)
+	@ManyToOne(cascade = CascadeType.MERGE)
+	@JoinColumn(name = "dept_id")
 	private Department department;
 
-	@Setter
 	@Embedded
 	private Audit audit;
 

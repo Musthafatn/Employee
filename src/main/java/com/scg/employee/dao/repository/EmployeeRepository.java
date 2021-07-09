@@ -16,7 +16,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 	List<Employee> findByNameFormat(String name);
 
 //	@Query(value = "select department.id,department.name from department inner join employee on department.id=employee.dept_id where employee.id=?1", nativeQuery = true)
-	@Query("select d.id,d.name from Department d join Employee e on d.id=e.deptId where e.id=?1")
-	String getDeptByEmpId(int id);
+//	@Query("select d.id,d.name from Department d join Employee e on d.id=e.deptId where e.id=?1")
+//	String getDeptByEmpId(int id);
 
 }

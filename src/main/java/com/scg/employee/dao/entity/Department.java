@@ -6,7 +6,6 @@ import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,6 +21,7 @@ import lombok.ToString;
 
 @ToString
 @Getter
+@Setter
 @EntityListeners(AuditListener.class)
 @Entity
 @Table(name = "department")
@@ -32,15 +32,12 @@ public class Department implements Auditable {
 	@Column(name = "id")
 	private Integer id;
 
-	@Setter
 	@Column(name = "name")
 	private String name;
 
-	@Setter
-	@OneToMany(mappedBy = "department", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "department")
 	private List<Employee> employeeList;
 
-	@Setter
 	@Embedded
 	private Audit audit;
 

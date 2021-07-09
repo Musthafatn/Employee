@@ -93,7 +93,8 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	@Override
 	public String getDept(final int id) {
 
-		return employeeRepository.getDeptByEmpId(id);
+//		return employeeRepository.getDeptByEmpId(id);
+		return null;
 	}
 
 }

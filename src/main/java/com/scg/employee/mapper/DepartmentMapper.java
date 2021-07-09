@@ -12,9 +12,9 @@ import com.scg.employee.vo.DepartmentVO;
 @Mapper(componentModel = "spring", uses = EmployeeMapper.class)
 public interface DepartmentMapper {
 
-	DepartmentVO toDepartmentVO(Department Department);
+	DepartmentVO toDepartmentVO(Department department);
 
-	Department toDepartment(DepartmentVO DepartmentVO);
+	Department toDepartment(DepartmentVO departmentVO);
 
 	List<DepartmentVO> toDepartmentVOList(List<Department> departmentList);
 

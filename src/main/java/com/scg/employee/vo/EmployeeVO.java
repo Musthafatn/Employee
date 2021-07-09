@@ -13,8 +13,7 @@ public class EmployeeVO {
 	private String name;
 	private Integer age;
 	private Integer salary;
-	private Integer deptId;
-//	private DepartmentVO department;
+	private DepartmentVO department;
 //	private AuditVO audit;
 
 }
